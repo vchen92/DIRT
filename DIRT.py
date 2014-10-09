@@ -7,7 +7,7 @@ import argparse
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(prog='DIRT.py',
-                                    description='Find reused text in a corpus of text')
+                                     description='Find reused text in a corpus of text')
 
     parser.add_argument('input_dir',
                         help='Directory containing input corpus')
