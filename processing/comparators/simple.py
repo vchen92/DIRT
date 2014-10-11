@@ -2,12 +2,13 @@ import difflib
 
 import base_comparator
 
+CLASS_NAME = 'SimpleComparator'
 
 def double_iter(iterable):
     for i in xrange(len(iterable) - 1):
         yield iterable[i], iterable[i+1]
 
-class SimpleComparator(base_comparator.BaseComparator):
+class Comparator(base_comparator.BaseComparator):
     def compare(self):
         matcher = difflib.SequenceMatcher(a=self.alpha, b=self.beta)
         matching_blocks = matcher.get_matching_blocks()
