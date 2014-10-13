@@ -4,6 +4,7 @@ import os
 
 REPORT_NAME = '{}__{}__CMP.json'
 
+
 class Processor(object):
     """
     Processor
@@ -16,14 +17,15 @@ class Processor(object):
         self.input_dir = input_dir
         self.output_dir = output_dir
 
-    def process(self):
-        # TODO refactor repeated blocks
-        a_name = os.path.join(self.input_dir, self.alpha_name)
+    def read_file_from_input(self, file_name):
+        a_name = os.path.join(self.input_dir, file_name)
         with codecs.open(a_name) as alpha_f:
             alpha = alpha_f.read()
-        b_name = os.path.join(self.input_dir, self.beta_name)
-        with codecs.open(b_name) as beta_f:
-            beta = beta_f.read()
+        return alpha
+
+    def process(self):
+        alpha = self.read_file_from_input(self.alpha_name)
+        beta = self.read_file_from_input(self.beta_name)
         comparator = self.comparator.Comparator(alpha=alpha,
                                                 beta=beta)
         out_name = REPORT_NAME.format(self.alpha_name,

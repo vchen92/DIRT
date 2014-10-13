@@ -4,6 +4,7 @@ from os import path
 
 PREPROCESS_SUFFIX = '_PRE'
 
+
 class Preprocessor(object):
     """
     Preprocessor

@@ -2,6 +2,7 @@
 Base comparator
 """
 
+
 class BaseComparator(object):
     """
     Base comparator class

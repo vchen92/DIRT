@@ -2,11 +2,14 @@ import difflib
 
 import base_comparator
 
+
 CLASS_NAME = 'SimpleComparator'
+
 
 def double_iter(iterable):
     for i in xrange(len(iterable) - 1):
         yield iterable[i], iterable[i+1]
+
 
 class Comparator(base_comparator.BaseComparator):
     def compare(self):
