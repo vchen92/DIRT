@@ -1,2 +1,1 @@
-DIRT
 nosetests>=1.3.4
