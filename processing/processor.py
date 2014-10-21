@@ -1,6 +1,7 @@
-import importlib
 import codecs
 import os
+
+from processing.comparators import simple
 
 REPORT_NAME = '{}__{}__CMP.json'
 
@@ -9,9 +10,8 @@ class Processor(object):
     """
     Processor
     """
-    def __init__(self, alpha_name, beta_name, input_dir, output_dir, comparator_name='simple'):
-        comparator_module = 'processing.comparators.{}'.format(comparator_name)
-        self.comparator = importlib.import_module(comparator_module)
+    def __init__(self, alpha_name, beta_name, input_dir, output_dir, comparator=simple):
+        self.comparator = comparator
         self.alpha_name = alpha_name
         self.beta_name = beta_name
         self.input_dir = input_dir
