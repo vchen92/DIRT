@@ -8,6 +8,7 @@ import jieba
 BLACKLIST = [u' ',
              u'\n']
 
+
 def standardize_line(line):
     """
     Standardize a line of Chinese text
