@@ -5,6 +5,9 @@ Module for standarizing Chinese text
 import jieba
 
 
+BLACKLIST = [u' ',
+             u'\n']
+
 def standardize_line(line):
     """
     Standardize a line of Chinese text
@@ -18,9 +21,9 @@ def standardize_line(line):
 
 def segment_words(unsegmented):
     """
-    Segment input text into words
+    Segment input text into words, removing blacklisted segments
     :param unsegmented: raw input text, words unseparated by spaces
     :return: generator of words
     """
     words = jieba.cut(unsegmented)
-    return words
+    return (word for word in words if word not in BLACKLIST)
