@@ -4,13 +4,21 @@ import unittest
 import zhi
 
 
+NEWS_DATA_FILE = 'preprocessing/language_standardizer/test_data/zhi_news.txt'
+
+
 class ZhiTest(unittest.TestCase):
 
     def setUp(self):
-        with codecs.open('test_data/zhi_news.txt', encoding='utf-8') as f:
+        with codecs.open(NEWS_DATA_FILE, encoding='utf-8') as f:
             self.raw_passage = f.read()
 
     def test_word_segmentation(self):
+        """
+        Test that a chinese passage is correctly segmented into words
+
+        NOTE: This is based on what jieba.cut does as of 2014-10-21
+        """
         segmented = [u'\u7a00\u571f',
                      u'\u662f',
                      u'\u4e16\u7eaa',
