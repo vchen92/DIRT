@@ -1,4 +1,5 @@
 import codecs
+import os
 import unittest
 
 import cjson
@@ -6,19 +7,21 @@ import cjson
 import zhi
 
 
-NEWS_DATA_FILE = 'preprocessing/language_standardizer/test_data/zhi_news.txt'
-NEWS_2_DATA_FILE = 'preprocessing/language_standardizer/test_data/zhi_news_2.txt'
-NEWS_TRAD_DATA_FILE = 'preprocessing/language_standardizer/test_data/zhi_news_trad.txt'
+NEWS_DATA_FILE = 'test_data/zhi_news.txt'
+NEWS_2_DATA_FILE = 'test_data/zhi_news_2.txt'
+NEWS_TRAD_DATA_FILE = 'test_data/zhi_news_trad.txt'
 
-NEWS_SEG_FILE = 'preprocessing/language_standardizer/test_data/zhi_news_segmented.json'
-NEWS_2_SEG_FILE = 'preprocessing/language_standardizer/test_data/zhi_news_2_segmented.json'
-NEWS_TRAD_SEG_FILE = 'preprocessing/language_standardizer/test_data/zhi_news_trad_segmented.json'
+NEWS_SEG_FILE = 'test_data/zhi_news_segmented.json'
+NEWS_2_SEG_FILE = 'test_data/zhi_news_2_segmented.json'
+NEWS_TRAD_SEG_FILE = 'test_data/zhi_news_trad_segmented.json'
 
 
 class ZhiTest(unittest.TestCase):
 
     def _read_file(self, file_name):
-        with codecs.open(file_name, encoding='utf-8') as f:
+        raw_loc = os.path.realpath(__file__)
+        my_dir = os.path.dirname(raw_loc)
+        with codecs.open(os.path.join(my_dir, file_name), encoding='utf-8') as f:
             raw_passage = f.read()
         return raw_passage
 
