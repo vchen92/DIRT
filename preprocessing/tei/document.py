@@ -29,7 +29,7 @@ class TEIDocument(object):
                 'date': self.get_element_text(TAG_DATE),
                 'availability': self.get_element_text(TAG_LICENSE),
                 'body': stripped_body,
-        }
+                }
 
     def get_element_text(self, tag):
         # TODO: go into p and div to get text
@@ -42,9 +42,7 @@ class TEIDocument(object):
     def get_element(self, tag):
         """
 
-        :param tree:
         :param tag:
-        :param namespace:
         :return:
         """
         query = self.get_tag_query(tag)
@@ -57,9 +55,7 @@ class TEIDocument(object):
     def get_elements(self, tag):
         """
         Return all elements of tag
-        :param tree:
         :param tag:
-        :param namespace:
         :return:
         """
         query = self.get_tag_query(tag)

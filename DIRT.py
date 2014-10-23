@@ -46,7 +46,7 @@ def process(args):
     beta_iter = iter_files_in(args.preprocessed_dir)
     compared = set()
     for a, b in itertools.product(alpha_iter, beta_iter):
-        this_set = set((a, b))
+        this_set = {a, b}
         if a != b and this_set not in compared:
             compared = set.union(compared, this_set)
             pro = processor.Processor(a, b, args.preprocessed_dir, args.output_dir,
