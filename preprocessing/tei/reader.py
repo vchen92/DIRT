@@ -1,6 +1,6 @@
 from lxml import etree
 
-import tei_document
+import document
 
 
 class TEIReader(object):
@@ -16,7 +16,7 @@ class TEIReader(object):
         ns_index = root_tag.rfind('}') + 1
         namespace = root_tag[:ns_index]
 
-        doc = tei_document.TEIDocument(tree, namespace)
+        doc = document.TEIDocument(tree, namespace)
         data_dict = doc.get_metadata()
         return data_dict
 
