@@ -16,12 +16,21 @@ TAG_BODY = 'body'
 class TEIDocument(object):
 
     query_template = '//{namespace}{tag}'
+    no_tag_error_template = 'Could not find <{tag}>'
 
     def __init__(self, tree, namespace):
+        """
+        :param tree: lxml ElementTree
+        :param namespace: namespace string of xml document
+        """
         self.tree = tree
         self.namespace = namespace
 
-    def get_metadata(self):
+    def get_data(self):
+        """
+        Get document meta/data
+        :return: dictionary of data
+        """
         raw_body = self.get_element_text(TAG_BODY)
         stripped_body = ' '.join(raw_body.split())
         return {'title': self.get_element_text(TAG_TITLE),
@@ -32,31 +41,29 @@ class TEIDocument(object):
                 }
 
     def get_element_text(self, tag):
-        # TODO: go into p and div to get text
+        """
+        Get text from element in document
+        :param tag: name of tag
+        :return: text within tag
+        """
         element = self.get_element(tag)
         if element is not None:
             return element.xpath('string()')
         else:
-            return 'No ' + tag
+            return self.no_tag_error_template.format(tag=tag)
 
     def get_element(self, tag):
         """
-
-        :param tag:
-        :return:
+        Get a single element from the xml document
+        :param tag: tag of the element in the document
+        :return: element node
         """
         query = self.get_tag_query(tag)
         return self.tree.find(query)
 
     def get_tag_query(self, tag):
+        """
+        Get xpath query for tag
+        """
         return self.query_template.format(namespace=self.namespace,
                                           tag=tag)
-
-    def get_elements(self, tag):
-        """
-        Return all elements of tag
-        :param tag:
-        :return:
-        """
-        query = self.get_tag_query(tag)
-        return self.tree.findall(query)
