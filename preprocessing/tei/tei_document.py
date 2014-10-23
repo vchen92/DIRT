@@ -22,18 +22,20 @@ class TEIDocument(object):
         self.namespace = namespace
 
     def get_metadata(self):
+        raw_body = self.get_element_text(TAG_BODY)
+        stripped_body = ' '.join(raw_body.split())
         return {'title': self.get_element_text(TAG_TITLE),
                 'edition': self.get_element_text(TAG_EDITION_STATEMENT),
                 'date': self.get_element_text(TAG_DATE),
                 'availability': self.get_element_text(TAG_LICENSE),
-                'body': self.get_element_text(TAG_BODY),
+                'body': stripped_body,
         }
 
     def get_element_text(self, tag):
         # TODO: go into p and div to get text
         element = self.get_element(tag)
         if element is not None:
-            return element.text
+            return element.xpath('string()')
         else:
             return 'No ' + tag
 

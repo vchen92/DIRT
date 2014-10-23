@@ -17,6 +17,6 @@ class TEIReader(object):
         namespace = root_tag[:ns_index]
 
         doc = tei_document.TEIDocument(tree, namespace)
-        metadata = doc.get_metadata()
-        return metadata
+        data_dict = doc.get_metadata()
+        return data_dict
 
