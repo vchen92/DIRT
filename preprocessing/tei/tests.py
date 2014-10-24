@@ -4,7 +4,7 @@ import unittest
 
 import cjson
 
-import reader
+import preprocessing.tei.document as document
 
 TEI_ZHI = 'test_data/zhi_tei.xml'
 TEI_ENG = 'test_data/eng_tei.xml'
@@ -13,7 +13,7 @@ JSON_ZHI = 'test_data/zhi_parsed.json'
 JSON_ENG = 'test_data/eng_parsed.json'
 
 
-class TEIReaderTest(unittest.TestCase):
+class TEIDocumentTest(unittest.TestCase):
 
     # TODO: move three methods to superclass
     #       they are copied from language prep test
@@ -33,18 +33,18 @@ class TEIReaderTest(unittest.TestCase):
         raw = self._read_file(file_name)
         return cjson.decode(raw, all_unicode=True)
 
-    def _test_parse(self, data_file, parsed_json_file):
+    def _test_get_data(self, data_file, parsed_json_file):
         """
         Check that an input file is correctly segmented
         :param data_file: utf8 chinese input file
         :param parsed_json_file: uft8 json file of correct segmentation
         """
         real_data_file = self._get_test_file_name(data_file)
-        r = reader.TEIReader(real_data_file)
-        output = r.parse()
+        doc = document.TEIDocument(real_data_file)
+        output = doc.get_data()
         desired = self._read_json_file(parsed_json_file)
         self.assertEquals(output, desired)
 
     def test_me(self):
-        self._test_parse(TEI_ZHI, JSON_ZHI)
-        self._test_parse(TEI_ENG, JSON_ENG)
+        self._test_get_data(TEI_ZHI, JSON_ZHI)
+        self._test_get_data(TEI_ENG, JSON_ENG)

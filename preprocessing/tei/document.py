@@ -1,3 +1,5 @@
+from lxml import etree
+
 TAG_HEADER = 'teiHeader'
 TAG_FILE_DESC = 'fileDesc'
 TAG_TITLE_STATEMENT = 'titleStmt'
@@ -18,19 +20,26 @@ class TEIDocument(object):
     query_template = '//{namespace}{tag}'
     no_tag_error_template = 'Could not find <{tag}>'
 
-    def __init__(self, tree, namespace):
+    def __init__(self, file_name):
         """
-        :param tree: lxml ElementTree
-        :param namespace: namespace string of xml document
+        :param file_naem: file name
         """
-        self.tree = tree
-        self.namespace = namespace
+        self.file_name = file_name
+        self.namespace = ''
+        self.tree = None
 
     def get_data(self):
         """
         Get document meta/data
         :return: dictionary of data
         """
+        parser = etree.XMLParser(remove_blank_text=True)
+        self.tree = etree.parse(self.file_name, parser=parser)
+        root = self.tree.getroot()
+        root_tag = root.tag
+        ns_index = root_tag.rfind('}') + 1
+
+        self.namespace = root_tag[:ns_index]
         raw_body = self.get_element_text(TAG_BODY)
         stripped_body = ' '.join(raw_body.split())
         return {'title': self.get_element_text(TAG_TITLE),
