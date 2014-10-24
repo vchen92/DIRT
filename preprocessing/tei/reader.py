@@ -10,12 +10,12 @@ class TEIReader(object):
     def read(self):
         """
         Read TEI xml document into a more useful form
-        :return: dictionary of document data
+        :return: models.document for file
         """
-
+        # TODO: is this module necessary?
         doc = tei_document.TEIDocument(self.file_name)
         data_dict = doc.get_data()
         body = data_dict['body']
         del data_dict['body']
-        std_doc = models.document.Document(self.file_name, body, data_dict)
-        return std_doc
+
+        return models.document.Document(self.file_name, body, data_dict)

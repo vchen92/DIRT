@@ -22,26 +22,33 @@ class TEIDocument(object):
 
     def __init__(self, file_name):
         """
-        :param file_naem: file name
+        :param file_name: file name
         """
         self.file_name = file_name
         self.namespace = ''
         self.tree = None
 
-    def get_data(self):
+    def _setup_parse_tree(self):
         """
-        Get document meta/data
-        :return: dictionary of data
+        Parse the file, set self.tree and self.namespace
         """
         parser = etree.XMLParser(remove_blank_text=True)
         self.tree = etree.parse(self.file_name, parser=parser)
         root = self.tree.getroot()
         root_tag = root.tag
         ns_index = root_tag.rfind('}') + 1
-
         self.namespace = root_tag[:ns_index]
+
+    def get_data(self):
+        """
+        Get document body and metadata
+        :return: dictionary of data
+        """
+        self._setup_parse_tree()
+
         raw_body = self.get_element_text(TAG_BODY)
         stripped_body = ' '.join(raw_body.split())
+        # TODO: consider making this it's own class
         return {'title': self.get_element_text(TAG_TITLE),
                 'edition': self.get_element_text(TAG_EDITION_STATEMENT),
                 'date': self.get_element_text(TAG_DATE),
