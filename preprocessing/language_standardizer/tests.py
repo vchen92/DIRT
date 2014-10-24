@@ -4,7 +4,7 @@ import unittest
 
 import cjson
 
-import zhi
+import preprocessing.language_standardizer.zhi as zhi
 
 
 NEWS_DATA_FILE = 'test_data/zhi_news.txt'

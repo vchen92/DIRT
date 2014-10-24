@@ -1,6 +1,6 @@
 import difflib
 
-import base_comparator
+import processing.comparators.base_comparator as base_comparator
 
 
 CLASS_NAME = 'SimpleComparator'
