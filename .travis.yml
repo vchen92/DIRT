@@ -4,6 +4,8 @@ python:
 install:
     - pip install -r requirements.txt
     - pip install coveralls
+    - mkdir test_preprocessed
+    - mkdir test_output
 script:
     - nosetests
     - coverage run run_tests.py
