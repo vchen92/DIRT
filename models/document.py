@@ -31,6 +31,15 @@ class Document(object):
              'metadata': self.metadata}
         return cjson.encode(d)
 
+    def __eq__(self, other):
+        if self.file_name != other.file_name:
+            return False
+        if self.metadata != other.metadata:
+            return False
+        if self.body != other.body:
+            return False
+        return True
+
     @classmethod
     def from_file(cls, file_name):
         if 'tei' in file_name.lower():
