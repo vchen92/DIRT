@@ -45,6 +45,6 @@ class TEIDocumentTest(unittest.TestCase):
         desired = self._read_json_file(parsed_json_file)
         self.assertEquals(output, desired)
 
-    def test_me(self):
+    def test_get_data(self):
         self._test_get_data(TEI_ZHI, JSON_ZHI)
         self._test_get_data(TEI_ENG, JSON_ENG)

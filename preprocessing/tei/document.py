@@ -39,6 +39,15 @@ class TEIDocument(object):
         ns_index = root_tag.rfind('}') + 1
         self.namespace = root_tag[:ns_index]
 
+    def get_body(self):
+        """
+        Get document body
+        :return: body of the tei document (no tags)
+        """
+        raw_body = self.get_element_text(TAG_BODY)
+        stripped_body = ' '.join(raw_body.split())
+        return stripped_body
+
     def get_data(self):
         """
         Get document body and metadata
@@ -46,8 +55,7 @@ class TEIDocument(object):
         """
         self._setup_parse_tree()
 
-        raw_body = self.get_element_text(TAG_BODY)
-        stripped_body = ' '.join(raw_body.split())
+        stripped_body = self.get_body()
         # TODO: consider making this it's own class
         return {'title': self.get_element_text(TAG_TITLE),
                 'edition': self.get_element_text(TAG_EDITION_STATEMENT),

@@ -1,6 +1,7 @@
 import codecs
 import os
 
+from models.document import Document
 from processing.comparators import simple
 
 REPORT_NAME = '{}__{}__CMP.json'
@@ -17,17 +18,15 @@ class Processor(object):
         self.input_dir = input_dir
         self.output_dir = output_dir
 
-    def read_file_from_input(self, file_name):
-        a_name = os.path.join(self.input_dir, file_name)
-        with codecs.open(a_name) as alpha_f:
-            alpha = alpha_f.read()
-        return alpha
+    def document_from_input(self, file_name):
+        real_name = os.path.join(self.input_dir, file_name)
+        return Document.from_file(real_name)
 
     def process(self):
-        alpha = self.read_file_from_input(self.alpha_name)
-        beta = self.read_file_from_input(self.beta_name)
-        comparator = self.comparator.Comparator(alpha=alpha,
-                                                beta=beta)
+        alpha = self.document_from_input(self.alpha_name)
+        beta = self.document_from_input(self.beta_name)
+        comparator = self.comparator.Comparator(alpha=alpha.body,
+                                                beta=beta.body)
         out_name = REPORT_NAME.format(self.alpha_name,
                                       self.beta_name)
         compared = comparator.compare()

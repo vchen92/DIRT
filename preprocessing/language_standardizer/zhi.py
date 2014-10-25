@@ -9,13 +9,13 @@ BLACKLIST = [u' ',
              u'\n']
 
 
-def standardize_line(line):
+def standardize(text):
     """
     Standardize a line of Chinese text
-    :param line: unicode string of Chinese
+    :param text: unicode string of Chinese
     :return: standardize form of input line
     """
-    words = segment_words(line)
+    words = segment_words(text)
     # Remove punctuation?
     return ' '.join(words)
 

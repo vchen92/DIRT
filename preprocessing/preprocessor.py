@@ -1,10 +1,10 @@
 import codecs
 from os import path
 
-
+from models.document import Document
 from preprocessing.language_standardizer import eng
 
-PREPROCESS_SUFFIX = '_PRE'
+PREPROCESS_SUFFIX = '_PRE.json'
 
 
 class Preprocessor(object):
@@ -25,8 +25,10 @@ class Preprocessor(object):
         output_name = self.file_name + PREPROCESS_SUFFIX
         in_file = path.join(self.input_dir, self.file_name)
         out_file = path.join(self.output_dir, output_name)
-        with codecs.open(in_file, encoding='UTF-8') as f:
-            with codecs.open(out_file, mode='w+', encoding='UTF-8') as o:
-                for line in f:
-                    processed_line = self.standardizer.standardize_line(line)
-                    o.write(processed_line)
+
+        in_document = Document.from_file(in_file)
+        processed = self.standardizer.standardize(in_document.body)
+        out_document = Document(output_name, processed, in_document.metadata)
+        processed_json = out_document.to_json()
+        with codecs.open(out_file, mode='w+', encoding='UTF-8') as o:
+            o.write(processed_json)
