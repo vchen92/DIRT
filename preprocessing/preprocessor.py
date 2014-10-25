@@ -13,8 +13,11 @@ class Preprocessor(object):
     """
     def __init__(self, file_name, input_dir, output_dir, standardizer=eng):
         """
-        Parameters:
-            file_name - name of input file
+        :param file_name: name of file to be preprocessed
+        :param input_dir: input directory
+        :param output_dir: output directory
+        :param standardizer: text standardizer
+        :return:
         """
         self.standardizer = standardizer
         self.input_dir = input_dir
